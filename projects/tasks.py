@@ -134,3 +134,19 @@ def delete_project_apps(project_slug):
     apps = AppInstance.objects.filter(project=project)
     for app in apps:
         apptasks.delete_resource.delay(app.pk)
+
+
+@shared_task
+def delete_project(project):
+    print("SCHEDULING DELETION OF ALL INSTALLED APPS")
+    delete_project_apps_permanently(project)
+
+    project.delete()
+
+@shared_task
+def delete_project_apps_permanently(project):
+    
+    apps = AppInstance.objects.filter(project=project)
+    
+    for app in apps:
+        apptasks.delete_resource_permanently.delay(app.pk)
