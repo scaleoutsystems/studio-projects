@@ -149,4 +149,4 @@ def delete_project_apps_permanently(project):
     apps = AppInstance.objects.filter(project=project)
     
     for app in apps:
-        apptasks.delete_resource_permanently.delay(app.pk)
+        apptasks.delete_resource_permanently.delay(app)
