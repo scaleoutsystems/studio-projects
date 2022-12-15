@@ -12,6 +12,7 @@ from django.http import HttpRequest
 
 import apps.tasks as apptasks
 import apps.views as appviews
+from apps.controller import delete
 
 
 from .exceptions import ProjectCreationException
@@ -149,4 +150,5 @@ def delete_project_apps_permanently(project):
     apps = AppInstance.objects.filter(project=project)
     
     for app in apps:
-        apptasks.delete_resource_permanently.delay(app)
+        helm_output = delete(app.parameters)
+        print(helm_output.stderr.decode('utf-8'))
