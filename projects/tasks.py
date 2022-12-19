@@ -155,11 +155,12 @@ def delete_project(project):
 
     project.delete()
 
+
 @shared_task
 def delete_project_apps_permanently(project):
-    
+
     apps = AppInstance.objects.filter(project=project)
-    
+
     for app in apps:
         helm_output = delete(app.parameters)
-        print(helm_output.stderr.decode('utf-8'))
+        print(helm_output.stderr.decode("utf-8"))

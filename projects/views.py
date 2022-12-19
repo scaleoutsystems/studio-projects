@@ -659,7 +659,6 @@ def delete(request, user, project_slug):
     else:
         project = Project.objects.filter(slug=project_slug).first()
 
-
     print("SCHEDULING DELETION OF ALL INSTALLED APPS")
     delete_project(project)
 

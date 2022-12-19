@@ -169,7 +169,6 @@ class ProjectManager(models.Manager):
         return password
 
 
-
 class Project(models.Model):
     authorized = models.ManyToManyField(get_user_model(), blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -222,14 +221,15 @@ class Project(models.Model):
 
 @receiver(pre_delete, sender=Project)
 def on_project_delete(sender, instance, **kwargs):
-    
+
     Model = apps.get_model(app_label=settings.MODELS_MODEL)
     print("ARCHIVING PROJECT MODELS")
     models = Model.objects.filter(project=instance)
 
     for model in models:
-        model.status = 'AR'
-        model.save()    
+        model.status = "AR"
+        model.save()
+
 
 class ProjectLog(models.Model):
     MODULE_CHOICES = [
