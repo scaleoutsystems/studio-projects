@@ -26,7 +26,7 @@ from .models import (
     ProjectLog,
     ProjectTemplate,
 )
-from .tasks import create_resources_from_template
+from .tasks import create_resources_from_template, delete_project
 
 logger = logging.getLogger(__name__)
 Apps = apps.get_model(app_label=django_settings.APPS_MODEL)
@@ -659,19 +659,9 @@ def delete(request, user, project_slug):
     else:
         project = Project.objects.filter(slug=project_slug).first()
 
+
     print("SCHEDULING DELETION OF ALL INSTALLED APPS")
-    from .tasks import delete_project_apps
-
-    delete_project_apps(project.slug)
-
-    print("ARCHIVING PROJECT MODELS")
-    models = Model.objects.filter(project=project)
-    for model in models:
-        model.status = "AR"
-        model.save()
-
-    project.status = "archived"
-    project.save()
+    delete_project(project)
 
     return HttpResponseRedirect(
         next_page, {"message": "Deleted project successfully."}

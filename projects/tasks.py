@@ -5,6 +5,7 @@ import string
 
 import apps.tasks as apptasks
 import apps.views as appviews
+from apps.controller import delete
 from celery import shared_task
 from django.apps import apps
 from django.conf import settings
@@ -145,3 +146,20 @@ def delete_project_apps(project_slug):
     apps = AppInstance.objects.filter(project=project)
     for app in apps:
         apptasks.delete_resource.delay(app.pk)
+
+
+@shared_task
+def delete_project(project):
+    print("SCHEDULING DELETION OF ALL INSTALLED APPS")
+    delete_project_apps_permanently(project)
+
+    project.delete()
+
+@shared_task
+def delete_project_apps_permanently(project):
+    
+    apps = AppInstance.objects.filter(project=project)
+    
+    for app in apps:
+        helm_output = delete(app.parameters)
+        print(helm_output.stderr.decode('utf-8'))
