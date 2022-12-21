@@ -66,8 +66,8 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             {% for app in objs.apps %}
                             <a class="dropdown-item"
-                                href="{% url 'apps:create' request.user project.slug app.slug  %}?from=overview">{{
-                                app.name }}</a>
+                                href="{% url 'apps:create' request.user project.slug app.slug  %}?from=overview">{{ app.name }}
+                            </a>
                             {% endfor %}
                         </div>
                     </div>
