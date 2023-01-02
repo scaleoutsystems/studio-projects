@@ -7,7 +7,7 @@
 
 <div class="row">
     {% for objs in resources %}
-    <div class="col-12 col-md-6 d-flex">
+    <div class="col-12 col-xl-6 d-flex">
         <div class="card flex-fill w-100">
             <div class="card-header">
                 <div class="card-actions float-end">
@@ -28,16 +28,16 @@
                 <h5 class="card-title mb-0">{{ objs.title }}</h5>
             </div>
             {% if objs.objs %}
-            <div class="dataTables_wrapper dt-bootstrap4 no-footer overflow-auto">
+            <div class="no-footer">
 
                 <table id="datatables-dashboard-projects-{{ forloop.counter }}"
-                    class="table table-striped my-0 dataTable no-footer" role="grid">
+                    class="table table-striped my-0 no-footer" role="grid">
                     <thead>
                         <tr>
-                            <th class="d-none d-xl-table-cell " tabindex="0" rowspan="1" colspan="1"></th>
+                            <th class="d-none d-xxl-table-cell " tabindex="0" rowspan="1" colspan="1"></th>
                             <th tabindex="0" rowspan="1" colspan="1">App</th>
                             <th tabindex="0" rowspan="1" colspan="1">Name</th>
-                            <th class="d-none d-xl-table-cell " tabindex="0" rowspan="1" colspan="1">Created</th>
+                            <th class="d-none d-xxl-table-cell " tabindex="0" rowspan="1" colspan="1">Created</th>
                             <th class="" tabindex="0" rowspan="1" colspan="1">Status</th>
                             <th class="d-none d-md-table-cell " tabindex="0" rowspan="1" colspan="1">Actions</th>
                         </tr>
@@ -47,15 +47,15 @@
                         <tr class="odd">
                             <td><img src="{{ media_url}}{{ obj.app.logo_file }}" class="img-fluid " alt="App Logo"
                                     style="max-height:25px;"></td>
-                            <td class="d-none d-xl-table-cell">{{ obj.app.name }}</td>
+                            <td class="d-none d-xxl-table-cell">{{ obj.app.name }}</td>
                             {% if obj.table_field.url %}
                             <td class="sorting_1"><a href="{{ obj.table_field.url }}" target="_blank">{{ obj.name }}</a>
                             </td>
                             {% else %}
                             <td class="sorting_1">{{ obj.name }}</td>
                             {% endif %}
-                            <!-- <td class="d-none d-xl-table-cell">{{ obj.owner }}</td> -->
-                            <td class="d-none d-xl-table-cell">{{ obj.created_on | date:"d/n/y H:i" }}</td>
+                            <!-- <td class="d-none d-xxl-table-cell">{{ obj.owner }}</td> -->
+                            <td class="d-none d-xxl-table-cell">{{ obj.created_on | date:"d/n/y H:i" }}</td>
                             <td id="status-{{ obj.pk }}"><span class="badge 
                                         {% if obj.status.latest.status_type in status_success %}bg-success
                                         {% elif obj.status.latest.status_type in status_warning %}bg-warning
@@ -94,7 +94,7 @@
         </div>
     </div>
     {% endfor %}
-    <div class="col-12 col-md-6 d-flex">
+    <div class="col-12 col-xl-6 d-flex">
         <div class="card flex-fill">
             <div class="card-header">
                 <div class="card-actions float-end">
@@ -111,21 +111,21 @@
                 <h5 class="card-title mb-0">Models</h5>
             </div>
             {% if models %}
-            <div class="dataTables_wrapper dt-bootstrap4 no-footer overflow-auto">
+            <div class="no-footer">
         
-                        <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer"
+                        <table id="datatables-dashboard-projects" class="table table-striped my-0 no-footer"
                             role="grid">
                             <thead>
                                 <tr>
-                                    <th tabindex="0" rowspan="1" colspan="1">Name</th>
-                                    <th class="d-none d-xl-table-cell" tabindex="0" rowspan="1" colspan="1">
+                                    <th scope="col">Name</th>
+                                    <th class="d-none d-xxl-table-cell" scope="col">
                                         Version</th>
-                                    <th class="d-none d-xl-table-cell" tabindex="0" rowspan="1" colspan="1">
+                                    <th class="d-none d-xxl-table-cell" scope="col">
                                         Created</th>
-                                    <th tabindex="0" rowspan="1" colspan="1">Status</th>
-                                    <th class="d-none d-md-table-cell" tabindex="0" rowspan="1" colspan="1">
+                                    <th scope="col">Status</th>
+                                    <th class="d-none d-md-table-cell" scope="col">
                                         Accessability</th>
-                                    <th class="d-none d-md-table-cell" tabindex="0" rowspan="1" colspan="1">
+                                    <th class="d-none d-md-table-cell" scope="col">
                                         Actions</th>
                                 </tr>
                             </thead>
@@ -133,8 +133,8 @@
                                 {% for model in models %}
                                 <tr class="odd">
                                     <td class="sorting_1">{{ model.name }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ model.version }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ model.uploaded_at }}</td>
+                                    <td class="d-none d-xxl-table-cell">{{ model.version }}</td>
+                                    <td class="d-none d-xxl-table-cell">{{ model.uploaded_at }}</td>
                                     <td><span class="badge 
                                         {% if model.status == 'CR' %}bg-warning
                                         {% elif model.status == 'DP' %}bg-success
